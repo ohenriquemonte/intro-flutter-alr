@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return _construirHome();
@@ -18,16 +23,12 @@ class Home extends StatelessWidget {
       height: 250.0,
       child: Card(
         margin: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                _construirImagemCard(),
-                _construirTextoCard(),
-              ],
-            ),
-          ],
-        ),
+        child: Column(children: [
+          Stack(children: [
+            _construirImagemCard(),
+            _construirTextoCard(),
+          ]),
+        ]),
       ),
     );
   }
@@ -42,10 +43,7 @@ class Home extends StatelessWidget {
     return Positioned(
       bottom: 10.0,
       left: 10.0,
-      child: Text(
-        'Bolo de Laranja',
-        style: TextStyle(fontSize: 20.0),
-      ),
+      child: Text('Bolo de Laranja', style: TextStyle(fontSize: 20.0)),
     );
   }
 
