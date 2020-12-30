@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-
 import 'package:intro_flutter_alr/modelos/receita.dart';
 
 class Home extends StatefulWidget {
@@ -47,10 +46,25 @@ class _HomeState extends State<Home> {
         child: Column(children: [
           Stack(children: [
             _construirImagemCard(foto),
+            _construirGradienteCard(),
             _construirTextoCard(titulo),
           ]),
         ]),
       ),
+    );
+  }
+
+  Widget _construirGradienteCard() {
+    return Container(
+      height: 218.0,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: FractionalOffset.topCenter,
+              end: FractionalOffset.bottomCenter,
+              colors: [
+            Colors.transparent,
+            Colors.deepOrange.withOpacity(0.7),
+          ])),
     );
   }
 
@@ -64,7 +78,8 @@ class _HomeState extends State<Home> {
     return Positioned(
       bottom: 10.0,
       left: 10.0,
-      child: Text(titulo, style: TextStyle(fontSize: 20.0)),
+      child:
+          Text(titulo, style: TextStyle(fontSize: 20.0, color: Colors.white)),
     );
   }
 
