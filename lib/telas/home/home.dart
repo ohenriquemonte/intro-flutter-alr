@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
           itemBuilder: (BuildContext context, int index) {
             Receita receita = Receita.fromJson(receitas[index]);
 
-            return _construirCard(receita.titulo, receita.foto);
+            return _construirCard(receita);
           },
           itemCount: receitas == null ? 0 : receitas.length,
         );
@@ -39,11 +39,15 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _construirCard(titulo, foto) {
+  Widget _construirCard(receita) {
     return GestureDetector(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Detalhes()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Detalhes(
+                        receita: receita,
+                      )));
         },
         child: SizedBox(
           height: 250.0,
@@ -51,9 +55,9 @@ class _HomeState extends State<Home> {
             margin: EdgeInsets.all(16.0),
             child: Column(children: [
               Stack(children: [
-                _construirImagemCard(foto),
+                _construirImagemCard(receita.foto),
                 _construirGradienteCard(),
-                _construirTextoCard(titulo),
+                _construirTextoCard(receita.titulo),
               ]),
             ]),
           ),
