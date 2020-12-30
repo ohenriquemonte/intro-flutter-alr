@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+
+import 'package:intro_flutter_alr/modelos/receita.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,20 +16,38 @@ class _HomeState extends State<Home> {
 
   Widget _construirHome() {
     return Scaffold(
-      body: _construirCard(),
+      body: _construirListaCard(),
       appBar: _construirAppBar(),
     );
   }
 
-  Widget _construirCard() {
+  Widget _construirListaCard() {
+    return FutureBuilder(
+      future: DefaultAssetBundle.of(context).loadString('assets/receitas.json'),
+      builder: (context, snapshot) {
+        List<dynamic> receitas = json.decode(snapshot.data.toString());
+
+        return ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            Receita receita = Receita.fromJson(receitas[index]);
+
+            return _construirCard(receita.titulo, receita.foto);
+          },
+          itemCount: receitas == null ? 0 : receitas.length,
+        );
+      },
+    );
+  }
+
+  Widget _construirCard(titulo, foto) {
     return SizedBox(
       height: 250.0,
       child: Card(
         margin: EdgeInsets.all(16.0),
         child: Column(children: [
           Stack(children: [
-            _construirImagemCard(),
-            _construirTextoCard(),
+            _construirImagemCard(foto),
+            _construirTextoCard(titulo),
           ]),
         ]),
       ),
@@ -39,19 +60,21 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _construirTextoCard() {
+  Widget _construirTextoCard(titulo) {
     return Positioned(
       bottom: 10.0,
       left: 10.0,
-      child: Text('Bolo de Laranja', style: TextStyle(fontSize: 20.0)),
+      child: Text(titulo, style: TextStyle(fontSize: 20.0)),
     );
   }
 
-  Widget _construirImagemCard() {
-    return Image.network(
-      'https://amp.receitadevovo.com.br/wp-content/uploads/2020/10/bolo-de-trigo-fofinho.jpg',
-      fit: BoxFit.fill,
-      height: 218.0,
-    );
+  Widget _construirImagemCard(foto) {
+    return Image.asset(foto, fit: BoxFit.fill, height: 218.0);
+
+    // return Image.network(
+    //   'https://amp.receitadevovo.com.br/wp-content/uploads/2020/10/bolo-de-trigo-fofinho.jpg',
+    //   fit: BoxFit.fill,
+    //   height: 218.0,
+    // );
   }
 }
