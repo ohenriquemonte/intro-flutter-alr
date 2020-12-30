@@ -28,13 +28,28 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: SizedBox(
-          height: 300.0,
+          height: 250.0,
           child: Card(
+            margin: EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Image.network(
-                    'https://amp.receitadevovo.com.br/wp-content/uploads/2020/10/bolo-de-trigo-fofinho.jpg'),
-                Text('Bolo de Laranja'),
+                Stack(
+                  children: [
+                    Image.network(
+                      'https://amp.receitadevovo.com.br/wp-content/uploads/2020/10/bolo-de-trigo-fofinho.jpg',
+                      fit: BoxFit.fill,
+                      height: 218.0,
+                    ),
+                    Positioned(
+                      bottom: 10.0,
+                      left: 10.0,
+                      child: Text(
+                        'Bolo de Laranja',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
           ),
