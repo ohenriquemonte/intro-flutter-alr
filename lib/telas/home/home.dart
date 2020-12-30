@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:intro_flutter_alr/modelos/receita.dart';
+import 'package:intro_flutter_alr/telas/detalhes/detalhes.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -39,19 +40,24 @@ class _HomeState extends State<Home> {
   }
 
   Widget _construirCard(titulo, foto) {
-    return SizedBox(
-      height: 250.0,
-      child: Card(
-        margin: EdgeInsets.all(16.0),
-        child: Column(children: [
-          Stack(children: [
-            _construirImagemCard(foto),
-            _construirGradienteCard(),
-            _construirTextoCard(titulo),
-          ]),
-        ]),
-      ),
-    );
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Detalhes()));
+        },
+        child: SizedBox(
+          height: 250.0,
+          child: Card(
+            margin: EdgeInsets.all(16.0),
+            child: Column(children: [
+              Stack(children: [
+                _construirImagemCard(foto),
+                _construirGradienteCard(),
+                _construirTextoCard(titulo),
+              ]),
+            ]),
+          ),
+        ));
   }
 
   Widget _construirGradienteCard() {
@@ -69,9 +75,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget _construirAppBar() {
-    return AppBar(
-      title: Text('Cozinhando em Casa'),
-    );
+    return AppBar(title: Text('Cozinhando em Casa'));
   }
 
   Widget _construirTextoCard(titulo) {
